@@ -54,7 +54,7 @@ myHeader = {"Content-Type": "application/json","Accept": "application/json", 'cs
 ### create API request body for creating NSX-T service
 
 # load the NSX-T service json file
-fname = cwd + "/servicesvmw.json"
+fname = cwd + "/services.json"
 try:
     with open(fname) as filehandle:
         services = json.load(filehandle)
