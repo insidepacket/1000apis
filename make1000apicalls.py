@@ -1,5 +1,4 @@
 #!/usr/local/bin/python3
-### use semaphore. the best performance (60 seconds for 1100+ API calls)
 import json
 import os
 import sys
@@ -13,6 +12,7 @@ from requests.exceptions import HTTPError
 
 
 cwd = os.getcwd() # get current working directory
+services_list = []
 
 # Open the input para file
 inputFile = cwd + "/" + sys.argv[1]
@@ -54,18 +54,14 @@ myHeader = {"Content-Type": "application/json","Accept": "application/json", 'cs
 ### create API request body for creating NSX-T service
 
 # load the NSX-T service json file
-fname = cwd + "/services.json"
+fname = cwd + "/services_list-example-2022-05-29-17-22-38.json"
 try:
     with open(fname) as filehandle:
-        services = json.load(filehandle)
+        services_list = json.load(filehandle)
         # services is <class 'list'>
 except:
     print('Import failed - unable to open',fname)
 
-# create the request body
-
-services_list = []
-         
 ### Make API called to update the service
 
 f = open(log_file, "a")
