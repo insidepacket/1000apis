@@ -65,52 +65,7 @@ except:
 # create the request body
 
 services_list = []
-
-for service in services:
-    json_data = {}
-    if service["_create_user"]!= "admin" and service["_create_user"]!="admin;admin" and service["_create_user"]!="system":
-        json_data["id"] = service["id"]
-        json_data["resource_type"]=service["resource_type"]
-        json_data["display_name"]=service["display_name"]
-        if "description" in service:
-            json_data["description"]=service["description"]
-        if "tages" in service:
-            json_data["tages"]=service["tages"]
-        service_entries = []
-        for entry in service["service_entries"]:
-            modified_entry = {}
-            ###
-            if "l4_protocol" in entry:
-                modified_entry["l4_protocol"] = entry["l4_protocol"]
-                modified_entry["source_ports"] = entry["source_ports"]
-                modified_entry["destination_ports"] = entry["destination_ports"]
-            elif entry["resource_type"] == "ALGTypeServiceEntry":
-                modified_entry["alg"] = entry["alg"]
-                modified_entry["source_ports"] = entry["source_ports"]
-                modified_entry["destination_ports"] = entry["destination_ports"]
-            else:
-                if "protocol" in entry: 
-                    if entry["protocol"] == "ICMPv4":
-                        modified_entry["protocol"] = entry["protocol"]
-                        if "icmp_type" in entry:
-                            modified_entry["icmp_type"] = entry["icmp_type"]
-                            if "icmp_code" in entry:
-                                modified_entry["icmp_code"] = entry["icmp_code"]
-                    else:
-                        print(entry["display_name"])
-                        print(entry["protocol"])
-                #else:
-                #    print("service entry: " + entry["display_name"])
-            if "tags" in entry:
-                modified_entry["tags"] = entry["tags"]
-            ###    
-            modified_entry["resource_type"] = entry["resource_type"]
-            modified_entry["id"] = entry["id"]
-            modified_entry["display_name"] = entry["display_name"]
-            service_entries.append (modified_entry)
-        json_data["service_entries"]=service_entries
-        services_list.append(json_data)                
-
+         
 ### Make API called to update the service
 
 f = open(log_file, "a")
